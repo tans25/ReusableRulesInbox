@@ -1,0 +1,12 @@
+# Render Blueprint — defines the service declaratively.
+# Push this to your repo and Render will auto-detect it.
+services:
+  - type: web
+    name: reusable-rules-inbox
+    runtime: docker
+    plan: free
+    envVars:
+      - key: MISTRAL_API_KEY
+        sync: false          # you'll set this in the Render dashboard
+      - key: HF_TOKEN
+        sync: false

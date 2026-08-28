@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Readable Rules Inbox</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --panel:#ffffff; --ink:#1a1d21; --muted:#6b7280;
+    --line:#e6e8eb; --line-soft:#eef0f2;
+    --accent:#2f5fd0; --accent-soft:#eaf0fc;
+    --true:#157f3b; --true-soft:#e7f4ec;
+    --false:#c0362c; --false-soft:#fbeceb;
+    --moved:#b4690e; --moved-soft:#fdf1e3;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);
+       font-size:14px;line-height:1.45}
+  header{display:flex;align-items:center;gap:14px;padding:12px 20px;
+         background:var(--panel);border-bottom:1px solid var(--line)}
+  header .dot{width:11px;height:11px;border-radius:50%;
+         background:linear-gradient(135deg,var(--accent),#6d8ff0);box-shadow:0 0 0 3px var(--accent-soft)}
+  header h1{font-size:15px;margin:0;font-weight:650;letter-spacing:-.01em}
+  header .sub{color:var(--muted);font-size:12.5px}
+  header .spacer{flex:1}
+  button{font-family:var(--sans);font-size:13px;border:1px solid var(--line);
+         background:var(--panel);color:var(--ink);border-radius:8px;padding:7px 12px;
+         cursor:pointer;transition:.12s}
+  button:hover{border-color:#cfd3d8;background:#fbfcfd}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  button.primary:hover{background:#2a55bd}
+  button:disabled{opacity:.5;cursor:default}
+  main{display:grid;grid-template-columns:280px 1fr 380px;height:calc(100vh - 49px)}
+  .col{overflow-y:auto;padding:16px}
+  .col.inbox{border-right:1px solid var(--line)}
+  .col.rules{border-left:1px solid var(--line);background:#fcfcfd}
+  .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+           color:var(--muted);font-weight:600;margin:2px 0 8px}
+  /* inbox */
+  .folder{margin-bottom:14px}
+  .folder h3{display:flex;align-items:center;gap:7px;font-size:12px;margin:0 0 6px;
+             color:var(--muted);font-weight:650;text-transform:uppercase;letter-spacing:.05em}
+  .folder h3 .count{color:#aab0b8;font-weight:600}
+  .msg{padding:8px 10px;border:1px solid transparent;border-radius:8px;cursor:pointer;
+       margin-bottom:3px}
+  .msg:hover{background:#f3f5f8}
+  .msg.sel{background:var(--accent-soft);border-color:#ccdcfa}
+  .msg .subj{font-weight:550;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .msg .from{color:var(--muted);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .msg .moved{display:inline-block;font-size:10.5px;font-weight:700;color:var(--moved);
+              background:var(--moved-soft);border-radius:5px;padding:1px 6px;margin-top:3px}
+  /* center: message + trace */
+  .empty{color:var(--muted);margin-top:40px;text-align:center}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+  .msg-subj{font-size:17px;font-weight:650;letter-spacing:-.01em;margin:0 0 4px}
+  .msg-meta{color:var(--muted);font-size:12.5px;margin-bottom:10px}
+  .msg-body{white-space:pre-wrap;color:#33383e}
+  .routed{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;
+          background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:3px 11px}
+  .trace-rule{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px;background:var(--panel)}
+  .trace-rule.win{border-color:#bcd0f6;box-shadow:inset 3px 0 0 var(--accent)}
+  .trace-rule.matched:not(.win){box-shadow:inset 3px 0 0 #cfd6df}
+  .tr-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+  .tr-name{font-weight:600}
+  .tr-tag{font-size:11px;font-weight:700;border-radius:6px;padding:2px 8px}
+  .tr-tag.win{background:var(--accent-soft);color:var(--accent)}
+  .tr-tag.also{background:#eef0f2;color:var(--muted)}
+  .tr-tag.no{background:#f2f3f5;color:#9aa0a8}
+  .tr-meta{font-size:11.5px;color:var(--muted);margin-bottom:8px}
+  .pred{display:flex;gap:9px;align-items:flex-start;padding:5px 0;border-top:1px solid var(--line-soft)}
+  .chip{flex:none;font-size:10.5px;font-weight:800;border-radius:5px;padding:2px 7px;margin-top:1px}
+  .chip.t{background:var(--true-soft);color:var(--true)}
+  .chip.f{background:var(--false-soft);color:var(--false)}
+  .pred .code{font-family:var(--mono);font-size:12.5px;color:#2b2f35}
+  .pred .ev{color:var(--muted);font-size:12px;margin-top:1px}
+  /* rules */
+  .rule-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+  .rule-card h4{margin:0 0 2px;font-size:13.5px;font-weight:650}
+  .rule-card .pri{font-size:11px;color:var(--muted);margin-bottom:8px}
+  textarea{width:100%;font-family:var(--sans);font-size:13px;color:var(--ink);
+           border:1px solid var(--line);border-radius:8px;padding:8px;resize:vertical;min-height:52px}
+  textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .compiled{font-family:var(--mono);font-size:12px;background:#f7f8fa;border:1px solid var(--line-soft);
+            border-radius:8px;padding:9px 10px;margin-top:8px;white-space:pre-wrap;color:#2b2f35}
+  .row{display:flex;gap:8px;align-items:center;margin-top:8px}
+  .diff{margin-top:8px;font-family:var(--mono);font-size:12px;border-radius:8px;overflow:hidden;border:1px solid var(--line-soft)}
+  .diff div{padding:3px 9px}
+  .diff .add{background:var(--true-soft);color:var(--true)}
+  .diff .add::before{content:"+ "}
+  .diff .rem{background:var(--false-soft);color:var(--false);text-decoration:line-through}
+  .diff .rem::before{content:"- "}
+  .diff .same{color:var(--muted)}
+  .diff .same::before{content:"  "}
+  .err{color:var(--false);font-size:12.5px;margin-top:6px}
+  .spin{opacity:.55;pointer-events:none}
+  .newbox{background:var(--panel);border:1px dashed #cfd6df;border-radius:12px;padding:14px;margin-bottom:16px}
+  .newbox .eyebrow{margin-top:0}
+</style>
+</head>
+<body>
+<header>
+  <span class="dot"></span>
+  <div>
+    <h1>Readable Rules Inbox</h1>
+    <div class="sub">Triage rules in plain English — compiled into logic you can read, edit, and re-run.</div>
+  </div>
+  <span class="spacer"></span>
+  <button id="runBtn" class="primary">Run rules</button>
+</header>
+
+<main>
+  <section class="col inbox" id="inbox"></section>
+  <section class="col center" id="center">
+    <div class="empty">Select a message to see why it was routed.</div>
+  </section>
+  <section class="col rules" id="rules"></section>
+</main>
+
+<script>
+const API = ""; // same origin
+const state = { messages:[], rules:[], traces:{}, prevRoutes:{}, selected:null };
+
+const FOLDERS = ["Finance","Retention","Support","Sales","Spam","Inbox"];
+
+async function api(path, opts){
+  const r = await fetch(API + path, opts);
+  if(!r.ok){ const e = await r.json().catch(()=>({detail:r.statusText})); throw new Error(e.detail||"error"); }
+  return r.json();
+}
+
+function opText(op){
+  return ({sender_domain_in:"sender domain in",sender_is:"sender is",subject_matches:"subject ~",
+    body_matches:"body ~",has_attachment:"has attachment",recipient_count_gte:"recipients \u2265",
+    thread_length_gte:"thread \u2265",semantic:"message"})[op]||op;
+}
+function predLine(p){ return (p.negate?"NOT ":"") + opText(p.op) + " " + (p.value||""); }
+
+function compiledText(rule){
+  const conj = rule.match==="all" ? "ALL of" : "ANY of";
+  const lines = rule.predicates.map(p=>"  \u2022 "+predLine(p)).join("\n");
+  const labels = rule.labels && rule.labels.length ? ", label "+rule.labels.join(", ") : "";
+  return `IF ${conj}:\n${lines}\nTHEN route to ${rule.route_to}${labels}`;
+}
+
+// ---------- inbox ----------
+function renderInbox(){
+  const el = document.getElementById("inbox");
+  const byFolder = {}; FOLDERS.forEach(f=>byFolder[f]=[]);
+  state.messages.forEach(m=>{
+    const route = (state.traces[m.id]||{}).final_route || "Inbox";
+    byFolder[route].push(m);
+  });
+  let html = `<div class="eyebrow">Inbox &middot; ${state.messages.length} messages</div>`;
+  FOLDERS.forEach(f=>{
+    const list = byFolder[f]; if(!list.length) return;
+    html += `<div class="folder"><h3>${f} <span class="count">${list.length}</span></h3>`;
+    list.forEach(m=>{
+      const moved = state.prevRoutes[m.id] && state.prevRoutes[m.id]!==f;
+      html += `<div class="msg ${state.selected===m.id?"sel":""}" data-id="${m.id}">
+        <div class="subj">${esc(m.subject)}</div>
+        <div class="from">${esc(m.from)}</div>
+        ${moved?`<span class="moved">moved from ${state.prevRoutes[m.id]}</span>`:""}
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  el.innerHTML = html;
+  el.querySelectorAll(".msg").forEach(n=>n.onclick=()=>{ state.selected=n.dataset.id; renderInbox(); renderCenter(); });
+}
+
+// ---------- center: message + trace ----------
+function renderCenter(){
+  const el = document.getElementById("center");
+  const m = state.messages.find(x=>x.id===state.selected);
+  if(!m){ el.innerHTML = `<div class="empty">Select a message to see why it was routed.</div>`; return; }
+  const t = state.traces[m.id];
+  let html = `<div class="card">
+    <div class="msg-subj">${esc(m.subject)}</div>
+    <div class="msg-meta">from ${esc(m.from)} &middot; to ${esc((m.to||[]).join(", "))}${m.has_attachment?" &middot; \uD83D\uDCCE attachment":""}</div>
+    <div class="msg-body">${esc(m.body)}</div>
+    ${t?`<div style="margin-top:12px"><span class="routed">\u2192 routed to ${t.final_route}</span></div>`:""}
+  </div>`;
+
+  if(t){
+    html += `<div class="eyebrow">Why &middot; rules considered in priority order</div>`;
+    t.considered.forEach(c=>{
+      const isWin = c.rule_id===t.matched_rule_id;
+      const cls = isWin?"win":(c.matched?"matched":"");
+      const tag = isWin?`<span class="tr-tag win">winner</span>`
+                 :(c.matched?`<span class="tr-tag also">also matched</span>`
+                 :`<span class="tr-tag no">no match</span>`);
+      html += `<div class="trace-rule ${cls}">
+        <div class="tr-head"><span class="tr-name">${esc(c.rule_name)}</span>${tag}</div>
+        <div class="tr-meta">priority ${c.priority} &middot; needs ${c.match==="all"?"ALL":"ANY"} &middot; \u2192 ${c.route_to}</div>
+        ${c.predicates.map(p=>`
+          <div class="pred">
+            <span class="chip ${p.result?"t":"f"}">${p.result?"TRUE":"FALSE"}</span>
+            <div><div class="code">${esc(predLineR(p))}</div><div class="ev">${esc(p.evidence)}</div></div>
+          </div>`).join("")}
+      </div>`;
+    });
+  }
+  el.innerHTML = html;
+}
+function predLineR(p){ return (p.negate?"NOT ":"") + opText(p.op) + " " + (p.value||""); }
+
+// ---------- rules ----------
+function renderRules(){
+  const el = document.getElementById("rules");
+  let html = `<div class="newbox">
+      <div class="eyebrow">Add a rule in plain English</div>
+      <textarea id="newNl" placeholder="e.g. If someone wants to cancel or churn, send it to Retention."></textarea>
+      <div class="row"><button id="addBtn" class="primary">Compile rule</button></div>
+      <div class="err" id="newErr"></div>
+    </div>`;
+  html += `<div class="eyebrow">Rules &middot; ${state.rules.length}</div>`;
+  state.rules.forEach(r=>{
+    html += `<div class="rule-card" data-id="${r.id}">
+      <h4>${esc(r.name)}</h4>
+      <div class="pri">priority ${r.priority} &middot; ${r.id}</div>
+      <textarea class="nl">${esc(r.source_nl||"")}</textarea>
+      <div class="compiled">${esc(compiledText(r))}</div>
+      <div class="row"><button class="recompile">Recompile &amp; show diff</button></div>
+      <div class="diffslot"></div>
+    </div>`;
+  });
+  el.innerHTML = html;
+
+  document.getElementById("addBtn").onclick = onAdd;
+  el.querySelectorAll(".rule-card").forEach(card=>{
+    card.querySelector(".recompile").onclick = ()=>onRecompile(card);
+  });
+}
+
+async function onAdd(){
+  const box = document.getElementById("newNl");
+  const err = document.getElementById("newErr");
+  const btn = document.getElementById("addBtn");
+  err.textContent=""; const nl = box.value.trim();
+  if(!nl) return;
+  btn.classList.add("spin"); btn.textContent="Compiling\u2026";
+  try{
+    const {rule} = await api("/api/compile",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({source_nl:nl})});
+    state.rules.push(rule);
+    await doRun();          // re-run so the new rule takes effect immediately
+    renderRules();
+  }catch(e){ err.textContent = e.message; }
+  finally{ btn.classList.remove("spin"); btn.textContent="Compile rule"; }
+}
+
+async function onRecompile(card){
+  const id = card.dataset.id;
+  const nl = card.querySelector(".nl").value.trim();
+  const btn = card.querySelector(".recompile");
+  const slot = card.querySelector(".diffslot");
+  slot.innerHTML=""; btn.classList.add("spin"); btn.textContent="Recompiling\u2026";
+  try{
+    const {rule, diff} = await api(`/api/rules/${id}`,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({source_nl:nl})});
+    const i = state.rules.findIndex(r=>r.id===id); if(i>=0) state.rules[i]=rule;
+    card.querySelector(".compiled").textContent = compiledText(rule);
+    slot.innerHTML = renderDiff(diff);
+    await doRun();          // the payoff: re-run, watch only affected messages move
+  }catch(e){ slot.innerHTML = `<div class="err">${esc(e.message)}</div>`; }
+  finally{ btn.classList.remove("spin"); btn.textContent="Recompile & show diff"; }
+}
+
+function renderDiff(diff){
+  const rows = [];
+  diff.removed.forEach(l=>rows.push(`<div class="rem">${esc(l)}</div>`));
+  diff.added.forEach(l=>rows.push(`<div class="add">${esc(l)}</div>`));
+  diff.unchanged.forEach(l=>rows.push(`<div class="same">${esc(l)}</div>`));
+  if(!diff.added.length && !diff.removed.length) rows.unshift(`<div class="same">no change to the compiled logic</div>`);
+  return `<div class="diff">${rows.join("")}</div>`;
+}
+
+// ---------- run ----------
+async function doRun(){
+  state.prevRoutes = {};
+  Object.values(state.traces).forEach(t=>{ state.prevRoutes[t.message_id]=t.final_route; });
+  const {results} = await api("/api/run",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({})});
+  const map = {}; results.forEach(t=>map[t.message_id]=t); state.traces = map;
+  renderInbox(); renderCenter();
+}
+
+document.getElementById("runBtn").onclick = async (e)=>{
+  e.target.classList.add("spin"); e.target.textContent="Running\u2026";
+  try{ await doRun(); } finally{ e.target.classList.remove("spin"); e.target.textContent="Run rules"; }
+};
+
+function esc(s){ return (s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+// ---------- boot ----------
+(async function(){
+  state.messages = await api("/api/inbox");
+  state.rules = await api("/api/rules");
+  await doRun();
+  renderRules();
+})();
+</script>
+</body>
+</html>

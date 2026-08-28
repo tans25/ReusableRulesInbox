@@ -1,0 +1,56 @@
+[
+  {
+    "id": "r_billing",
+    "name": "Billing questions to Finance",
+    "source_nl": "Anything about invoices, refunds, charges, or billing goes to Finance.",
+    "priority": 10,
+    "match": "any",
+    "route_to": "Finance",
+    "labels": [
+      "billing"
+    ],
+    "predicates": [
+      {
+        "op": "subject_matches",
+        "value": "(?i)invoice|refund|charge|billing|payment",
+        "negate": false
+      }
+    ]
+  },
+  {
+    "id": "r_support",
+    "name": "Product problems to Support",
+    "source_nl": "Messages reporting errors, bugs, or things not working go to Support.",
+    "priority": 10,
+    "match": "any",
+    "route_to": "Support",
+    "labels": [
+      "support"
+    ],
+    "predicates": [
+      {
+        "op": "subject_matches",
+        "value": "(?i)bug|error|broken|crash|not working|can'?t (log|access)|locked|reset",
+        "negate": false
+      }
+    ]
+  },
+  {
+    "id": "r_sales",
+    "name": "Prospects to Sales",
+    "source_nl": "Demo requests, pricing, quotes, and buying interest go to Sales.",
+    "priority": 10,
+    "match": "any",
+    "route_to": "Sales",
+    "labels": [
+      "sales"
+    ],
+    "predicates": [
+      {
+        "op": "subject_matches",
+        "value": "(?i)demo|pricing|quote|interested|renewal|upgrade|discount",
+        "negate": false
+      }
+    ]
+  }
+]

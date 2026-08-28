@@ -1,0 +1,482 @@
+[
+  {
+    "id": "m_001",
+    "from": "user1@initech.com",
+    "from_domain": "initech.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Invoice #4821 attached",
+    "body": "Please find attached invoice #4821 for last month's services.",
+    "has_attachment": true,
+    "thread_length": 1
+  },
+  {
+    "id": "m_002",
+    "from": "user2@globex.com",
+    "from_domain": "globex.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Question about a charge",
+    "body": "I see a charge on my statement I don't recognize. Can you explain?",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_003",
+    "from": "user3@umbrella.co",
+    "from_domain": "umbrella.co",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Refund request",
+    "body": "I was double charged for my plan and would like a refund.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_004",
+    "from": "user4@acme.com",
+    "from_domain": "acme.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Billing address update",
+    "body": "We need to update the billing address on our account.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_005",
+    "from": "user5@acme.com",
+    "from_domain": "acme.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Payment failed",
+    "body": "Our latest payment didn't go through \u2014 can you retry the card?",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_006",
+    "from": "user6@hooli.com",
+    "from_domain": "hooli.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "App keeps crashing",
+    "body": "The dashboard crashes every time I open the reports tab. This is a bug.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_007",
+    "from": "user7@acme.com",
+    "from_domain": "acme.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Login not working",
+    "body": "I can't log in, it says my password is wrong but I just reset it.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_008",
+    "from": "user8@initech.com",
+    "from_domain": "initech.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Export is broken",
+    "body": "CSV export returns an empty file. Something is broken.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_009",
+    "from": "user9@hooli.com",
+    "from_domain": "hooli.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Error 500 on save",
+    "body": "Getting a 500 error whenever I try to save a project.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_010",
+    "from": "user10@acme.com",
+    "from_domain": "acme.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Feature not working",
+    "body": "The new filter feature isn't working on mobile.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_011",
+    "from": "user11@hooli.com",
+    "from_domain": "hooli.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Interested in a demo",
+    "body": "We're evaluating tools for our team and would love a demo.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_012",
+    "from": "user12@globex.com",
+    "from_domain": "globex.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Pricing for 50 seats",
+    "body": "Can you send pricing for a 50-seat annual plan?",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_013",
+    "from": "user13@acme.com",
+    "from_domain": "acme.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Quote request",
+    "body": "Please send a formal quote for the enterprise tier.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_014",
+    "from": "user14@acme.com",
+    "from_domain": "acme.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Comparing options",
+    "body": "Interested in your product vs a competitor \u2014 can we chat?",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_015",
+    "from": "user15@umbrella.co",
+    "from_domain": "umbrella.co",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Renewal + upgrade",
+    "body": "We'd like to renew and possibly upgrade our plan.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_016",
+    "from": "user16@umbrella.co",
+    "from_domain": "umbrella.co",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Lunch next week?",
+    "body": "Are you free for lunch on Thursday?",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_017",
+    "from": "dana@globex.com",
+    "from_domain": "globex.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Cancelling \u2014 refund for this month?",
+    "body": "I want to cancel my subscription. Can I also get a refund for this month since I'm churning?",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_018",
+    "from": "user18@free-prizes.biz",
+    "from_domain": "free-prizes.biz",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "You WON a prize!!!",
+    "body": "Claim your free gift card now, limited time only!!!",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_019",
+    "from": "user19@free-prizes.biz",
+    "from_domain": "free-prizes.biz",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Increase your followers fast",
+    "body": "Buy 10k followers today, cheap rates.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_020",
+    "from": "user20@free-prizes.biz",
+    "from_domain": "free-prizes.biz",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Crypto opportunity",
+    "body": "Guaranteed 300% returns, invest now.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_021",
+    "from": "user21@hooli.com",
+    "from_domain": "hooli.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Great job on the launch",
+    "body": "Just wanted to say the launch looked great.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_022",
+    "from": "user22@umbrella.co",
+    "from_domain": "umbrella.co",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Out of office",
+    "body": "I'll be away until Monday, back then.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_023",
+    "from": "user23@acme.com",
+    "from_domain": "acme.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Meeting notes",
+    "body": "Attaching the notes from today's sync.",
+    "has_attachment": true,
+    "thread_length": 1
+  },
+  {
+    "id": "m_024",
+    "from": "user24@hooli.com",
+    "from_domain": "hooli.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Newsletter: April edition",
+    "body": "Here's what's new this month at our company.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_025",
+    "from": "contact25@acme.com",
+    "from_domain": "acme.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Follow-up on invoice",
+    "body": "Just following up on the outstanding invoice from last week.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_026",
+    "from": "contact26@globex.com",
+    "from_domain": "globex.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Cannot access account",
+    "body": "My account is locked and I can't get in. Please help, this is urgent.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_027",
+    "from": "contact27@hooli.com",
+    "from_domain": "hooli.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Bug: notifications duplicated",
+    "body": "I'm getting every notification twice since the update.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_028",
+    "from": "contact28@acme.com",
+    "from_domain": "acme.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Discount for nonprofits?",
+    "body": "Do you offer nonprofit pricing? Interested in signing up.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_029",
+    "from": "contact29@hooli.com",
+    "from_domain": "hooli.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Contract renewal terms",
+    "body": "Can you share the renewal terms and updated pricing?",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_030",
+    "from": "contact30@hooli.com",
+    "from_domain": "hooli.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Chargeback notice",
+    "body": "We are disputing a charge and filing a chargeback.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_031",
+    "from": "contact31@umbrella.co",
+    "from_domain": "umbrella.co",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Thinking of cancelling",
+    "body": "We're considering cancelling next month, wanted to talk first.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_032",
+    "from": "contact32@acme.com",
+    "from_domain": "acme.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Downgrade my plan",
+    "body": "I'd like to downgrade to the cheaper plan to save money.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_033",
+    "from": "contact33@globex.com",
+    "from_domain": "globex.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Great support experience",
+    "body": "Your rep was super helpful yesterday, thank you.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_034",
+    "from": "contact34@acme.com",
+    "from_domain": "acme.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Webinar invite",
+    "body": "Join our webinar on best practices next Tuesday.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_035",
+    "from": "contact35@hooli.com",
+    "from_domain": "hooli.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Password reset help",
+    "body": "The reset link in my email is expired, can you resend?",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_036",
+    "from": "contact36@globex.com",
+    "from_domain": "globex.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Annual invoice needed",
+    "body": "Finance needs an annual invoice for accounting purposes.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_037",
+    "from": "contact37@initech.com",
+    "from_domain": "initech.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Interested after trial",
+    "body": "Our trial ends soon and we'd like to buy. Send next steps?",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_038",
+    "from": "contact38@umbrella.co",
+    "from_domain": "umbrella.co",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Refund not received",
+    "body": "It's been two weeks and my refund hasn't arrived.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_039",
+    "from": "contact39@globex.com",
+    "from_domain": "globex.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Cancel and refund please",
+    "body": "Please cancel my account and refund the last payment.",
+    "has_attachment": false,
+    "thread_length": 1
+  },
+  {
+    "id": "m_040",
+    "from": "contact40@hooli.com",
+    "from_domain": "hooli.com",
+    "to": [
+      "support@us.co"
+    ],
+    "subject": "Random survey",
+    "body": "Please take our 2-minute survey!",
+    "has_attachment": false,
+    "thread_length": 1
+  }
+]
